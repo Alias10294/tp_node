@@ -30,11 +30,13 @@ if (count.total === 0) {
   console.log('Données initiales importées.');
 }
 
+// GET /heroes
 app.get('/heroes', (req, res) => {
   const heroes = db.prepare('SELECT * FROM heroes').all();
   res.json(heroes);
 });
 
+// GET /heroes/:id
 app.get('/heroes/:id', (req, res) => 
 {
   const id = parseInt(req.params.id, 10);
@@ -50,6 +52,7 @@ app.get('/heroes/:id', (req, res) =>
   res.json(hero);
 });
 
+// GET /heroes/search?q=bat
 app.get('/heroes/search', (req, res) => 
   {
   const q = req.query.q;
@@ -60,6 +63,7 @@ app.get('/heroes/search', (req, res) =>
   res.json(heroes);
 });
 
+// GET /heroes?publisher=DC
 app.get('/heroes', (req, res) => 
 {
   const publisher = req.query.publisher;
@@ -79,6 +83,7 @@ app.get('/heroes', (req, res) =>
   res.json(heroes);
 });
 
+// GET /heroes/sorted?by=height
 app.get('/heroes/sorted', (req, res) => 
 {
   const by = req.query.by;
@@ -91,6 +96,7 @@ app.get('/heroes/sorted', (req, res) =>
   res.json(heroes);
 });
 
+// POST /heroes
 app.post('/heroes', (req, res) => 
   {
   const { name, publisher, gender, race, power, alignment, height_cm, weight_kg } = req.body;
@@ -107,6 +113,7 @@ app.post('/heroes', (req, res) =>
     .run(name, publisher, gender, race, power, alignment, height_cm, weight_kg, now);
 });
 
+// DELETE /heroes/:id
 app.delete('/heroes/:id', (req, res) => 
 {
   const id = parseInt(req.params.id, 10);
